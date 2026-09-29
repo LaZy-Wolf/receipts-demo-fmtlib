@@ -7,10 +7,13 @@ _SUFFIX = {1: "st", 2: "nd", 3: "rd"}
 def human_bytes(n: int) -> str:
     """Format a byte count: 1536 -> '1.5 KB'."""
     size = float(n)
-    for unit in _UNITS:
-        if abs(size) < 1024 or unit == _UNITS[-1]:
-            return f"{size:.0f} {unit}" if unit == "B" else f"{size:.1f} {unit}"
+    for unit in _UNITS[:-1]:
+        if abs(size) < 1000:
+            break
         size /= 1024
+    else:
+        unit = _UNITS[-1]
+    return f"{size:.0f} {unit}" if unit == "B" else f"{size:.1f} {unit}"
 
 
 def percent(fraction: float, digits: int = 0) -> str:
@@ -27,3 +30,9 @@ def ordinal(n: int) -> str:
 def format_number(n, sep: str = ",") -> str:
     """Group thousands: 1234567 -> '1,234,567'."""
     return f"{n:,}".replace(",", sep)
+
+
+def ordinal_words(n: int) -> str:
+    """1 -> 'first' ... 10 -> 'tenth'; larger numbers fall back to ordinal()."""
+    words = ["first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth"]
+    return words[n - 1] if 1 <= n <= 10 else ordinal(n)
