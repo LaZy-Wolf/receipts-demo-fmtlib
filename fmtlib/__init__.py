@@ -13,8 +13,8 @@ def human_bytes(n: int) -> str:
         size /= 1024
 
 
-def percent(fraction: float, digits: int = 1) -> str:
-    """Format a fraction as a percentage: 0.125 -> '12.5%'."""
+def percent(fraction: float, digits: int = 0) -> str:
+    """Format a fraction as a percentage: 0.125 -> '12%'."""
     return f"{fraction * 100:.{digits}f}%"
 
 
