@@ -19,8 +19,9 @@ def percent(fraction: float, digits: int = 1) -> str:
 
 
 def ordinal(n: int) -> str:
-    """1 -> '1st', 2 -> '2nd', 23 -> '23rd'."""
-    return f"{n}{_SUFFIX.get(n % 10, 'th')}"
+    """1 -> '1st', 2 -> '2nd', 11 -> '11th', 23 -> '23rd'."""
+    suffix = "th" if 10 <= n % 100 <= 20 else _SUFFIX.get(n % 10, "th")
+    return f"{n}{suffix}"
 
 
 def format_number(n, sep: str = ",") -> str:
